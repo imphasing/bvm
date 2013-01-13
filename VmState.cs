@@ -9,14 +9,18 @@ namespace VmThing
 {
     public class VmState
     {
-        public Stack<IType> stack;
-        public int programCounter;
         public List<IInstruction> instructions;
+        public Stack<StackFrame> stack;
+        public RegisterState registers;
+        
 
-        public VmState(Stack<IType> stack, int programCounter, List<IInstruction> instructions)
+        public VmState(int programCounter, List<IInstruction> instructions)
         {
-            this.stack = stack;
-            this.programCounter = programCounter;
+            this.registers = new RegisterState(null, null, null, new VmInteger(programCounter));
+
+            this.stack = new Stack<StackFrame>();
+            stack.Push(new StackFrame(new Stack<IType>(), registers));
+
             this.instructions = instructions;
         }
     }

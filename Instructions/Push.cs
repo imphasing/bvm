@@ -8,17 +8,12 @@ namespace VmThing.Instructions
 {
     public class Push : IInstruction
     {
-        private readonly IType toPush;
-
-        public Push(IType type)
-        {
-            this.toPush = type;
-        }
-
         public void Execute(VmState state)
         {
-            state.stack.Push(toPush);
-            state.programCounter++;
+            var toPush = state.registers.register1;
+
+            state.stack.Peek().locals.Push(toPush);
+            state.registers.programCounter.value++;
         }
     }
 }

@@ -5,11 +5,11 @@ using System.Text;
 
 namespace VmThing.Types
 {
-    public class Integer : IType
+    public class VmInteger : IType
     {
         public int value;
 
-        public Integer(int value)
+        public VmInteger(int value)
         {
             this.value = value;
         }

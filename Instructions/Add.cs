@@ -10,12 +10,13 @@ namespace VmThing.Instructions
     {
         public void Execute(VmState state)
         {
-            var arg1 = (Integer) state.stack.Pop();
-            var arg2 = (Integer) state.stack.Pop();
+            var arg1 = (VmInteger) state.registers.register1;
+            var arg2 = (VmInteger) state.registers.register2;
 
-            var result = new Integer(arg1.value + arg2.value);
-            state.stack.Push(result);
-            state.programCounter++;
+            var result = new VmInteger(arg1.value + arg2.value);
+            state.registers.register3 = result;
+
+            state.registers.programCounter.value++;
         }
     }
 }

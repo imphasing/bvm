@@ -50,10 +50,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Instructions\Add.cs" />
+    <Compile Include="Instructions\Call.cs" />
+    <Compile Include="Instructions\Load.cs" />
+    <Compile Include="Instructions\Ret.cs" />
     <Compile Include="Instructions\Pop.cs" />
     <Compile Include="Instructions\Push.cs" />
     <Compile Include="Instructions\IInstruction.cs" />
-    <Compile Include="Types\Integer.cs" />
+    <Compile Include="RegisterState.cs" />
+    <Compile Include="StackFrame.cs" />
+    <Compile Include="Types\VmString.cs" />
+    <Compile Include="Types\VmInteger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\IType.cs" />

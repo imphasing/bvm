@@ -7,27 +7,26 @@ using VmThing.Types;
 
 namespace VmThing
 {
-    class Vm
+    public class Vm
     {
         public VmState state;
 
         public Vm(List<IInstruction> instructions)
         {
-            var stack = new Stack<IType>();
-            var programCounter = 0;
-
-            this.state = new VmState(stack, programCounter, instructions);
+            var stack = new Stack<StackFrame>();
+            stack.Push(new StackFrame(new Stack<IType>(), new RegisterState(null, null, null, new VmInteger(0))));
+            this.state = new VmState(0, instructions);
         }
 
         public IType Run()
         {
-            while (state.programCounter < state.instructions.Count)
+            while (state.registers.programCounter.value < state.instructions.Count)
             {
-                var nextInstruction = state.instructions[state.programCounter];
+                var nextInstruction = state.instructions[state.registers.programCounter.value];
                 nextInstruction.Execute(state);
             }
 
-            return state.stack.Pop();
+            return state.registers.register3;
         }
     }
 }
