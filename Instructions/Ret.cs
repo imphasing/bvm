@@ -10,13 +10,19 @@ namespace VmThing.Instructions
     {
         public void Execute(VmState state)
         {
-            var previous = state.stack.Peek();
-            var returnValue = state.registers.register3;
+            var oldFrame = state.memory[--state.registers.stackPointer.value];
+            var oldPc = state.memory[--state.registers.stackPointer.value];
 
-            state.stack.Pop();
-            state.registers = previous.previousState;
-            state.registers.register3 = returnValue;
-            state.registers.programCounter.value++;
+            state.registers.stackPointer = state.registers.framePointer;
+            state.registers.framePointer = oldFrame.As<VmInteger>();
+
+            oldPc.As<VmInteger>().value++;
+            state.registers.programCounter = oldPc.As<VmInteger>();
+        }
+
+        public IType Copy()
+        {
+            return new Ret();
         }
     }
 }

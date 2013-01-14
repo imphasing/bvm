@@ -8,13 +8,11 @@ namespace VmThing
 {
     public class StackFrame
     {
-        public Stack<IType> locals;
         public RegisterState previousState;
 
-        public StackFrame(Stack<IType> locals, RegisterState previousState)
+        public StackFrame(RegisterState previousState)
         {
             this.previousState = previousState;
-            this.locals = locals;
         }
     }
 }

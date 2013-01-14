@@ -13,16 +13,15 @@ namespace VmThing
 
         public Vm(List<IInstruction> instructions)
         {
-            var stack = new Stack<StackFrame>();
-            stack.Push(new StackFrame(new Stack<IType>(), new RegisterState(null, null, null, new VmInteger(0))));
-            this.state = new VmState(0, instructions);
+            this.state = new VmState(instructions);
         }
 
         public IType Run()
         {
-            while (state.registers.programCounter.value < state.instructions.Count)
+            // execute until we unwind indo coad
+            while (state.registers.stackPointer.value >= state.instructionCount)
             {
-                var nextInstruction = state.instructions[state.registers.programCounter.value];
+                var nextInstruction = (IInstruction) state.memory[state.registers.programCounter.value];
                 nextInstruction.Execute(state);
             }
 

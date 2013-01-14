@@ -18,10 +18,21 @@ namespace VmThing.Instructions
 
         public void Execute(VmState state)
         {
-            StackFrame next = new StackFrame(state.stack.Peek().locals, RegisterState.DeepClone(state.registers));
+            // push program counter then frame pointer
+            new Load(state.registers.programCounter.Copy(), new VmInteger(1)).Execute(state);
+            new Push().Execute(state);
+            new Load(state.registers.framePointer.Copy(), new VmInteger(1)).Execute(state);
+            new Push().Execute(state);
 
-            state.stack.Push(next);
-            state.registers.programCounter = location;
+            state.registers.framePointer = state.registers.stackPointer;
+            state.registers.stackPointer = state.registers.framePointer;
+
+            state.registers.programCounter.value = location.value;
+        }
+
+        public IType Copy()
+        {
+            return new Call((VmInteger) location.Copy());
         }
     }
 }

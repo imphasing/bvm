@@ -13,5 +13,10 @@ namespace VmThing.Types
         {
             this.value = value;
         }
+
+        public IType Copy()
+        {
+            return new VmInteger(value);
+        }
     }
 }

@@ -14,7 +14,10 @@ namespace VmThing
 
             instructions.Add(new Load(new VmInteger(1), new VmInteger(1)));
             instructions.Add(new Load(new VmInteger(2), new VmInteger(2)));
-            instructions.Add(new Call(new VmInteger(3)));
+            instructions.Add(new Call(new VmInteger(4)));
+            instructions.Add(new Pop());
+
+            // address 4
             instructions.Add(new Load(new VmInteger(10), new VmInteger(1)));
             instructions.Add(new Load(new VmInteger(20), new VmInteger(2)));
             instructions.Add(new Add());

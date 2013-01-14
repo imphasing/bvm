@@ -12,8 +12,14 @@ namespace VmThing.Instructions
         {
             var toPush = state.registers.register1;
 
-            state.stack.Peek().locals.Push(toPush);
+            state.memory[state.registers.stackPointer.value] = toPush;
+            state.registers.stackPointer.value++;
             state.registers.programCounter.value++;
+        }
+
+        public IType Copy()
+        {
+            return new Push();
         }
     }
 }

@@ -10,8 +10,14 @@ namespace VmThing.Instructions
     {
         public void Execute(VmState state)
         {
-            state.registers.register3 = state.stack.Peek().locals.Pop();
+            state.registers.register3 = state.memory[--state.registers.stackPointer.value];
+            
             state.registers.programCounter.value++;
+        }
+
+        public IType Copy()
+        {
+            return new Pop();
         }
     }
 }

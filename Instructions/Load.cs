@@ -37,5 +37,10 @@ namespace VmThing.Instructions
 
             state.registers.programCounter.value++;
         }
+
+        public IType Copy()
+        {
+            return new Load(toLoad.Copy(), (VmInteger) register.Copy());
+        }
     }
 }

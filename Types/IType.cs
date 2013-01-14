@@ -7,5 +7,6 @@ namespace VmThing.Types
 {
     public interface IType
     {
+        IType Copy();
     }
 }
