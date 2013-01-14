@@ -18,10 +18,12 @@ namespace VmThing.Instructions
 
         public void Execute(VmState state)
         {
-            // push program counter then frame pointer
-            new Load(state.registers.programCounter.Copy(), new VmInteger(1)).Execute(state);
+            // push stack pointer, frame pointer, and program counter
+            new Load(state.registers.stackPointer.Copy(), new VmInteger(1)).Execute(state);
             new Push().Execute(state);
             new Load(state.registers.framePointer.Copy(), new VmInteger(1)).Execute(state);
+            new Push().Execute(state);
+            new Load(state.registers.programCounter.Copy(), new VmInteger(1)).Execute(state);
             new Push().Execute(state);
 
             state.registers.framePointer = state.registers.stackPointer;

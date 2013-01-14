@@ -26,10 +26,17 @@ namespace VmThing
                 this.memory[i] = instructions[i];
             }
 
-            // index of first non-code location, the frame start, and the next item, the first local/arg space
-            var frameStart =  instructions.Count;
+            this.registers = new RegisterState(null, null, null, new VmInteger(instructionCount), new VmInteger(instructionCount), new VmInteger(0));
+            
 
-            this.registers = new RegisterState(null, null, null, new VmInteger(frameStart), new VmInteger(frameStart), new VmInteger(0));
+            // bootstrap main return address for final return
+            new Load(new VmInteger(instructionCount), new VmInteger(1)).Execute(this);
+            new Push().Execute(this);
+            new Load(new VmInteger(instructionCount), new VmInteger(1)).Execute(this);
+            new Push().Execute(this);
+            new Load(new VmInteger(int.MaxValue - 1), new VmInteger(1)).Execute(this);
+            new Push().Execute(this);
+            this.registers.programCounter = new VmInteger(0);
         }
     }
 }

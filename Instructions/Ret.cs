@@ -10,10 +10,11 @@ namespace VmThing.Instructions
     {
         public void Execute(VmState state)
         {
-            var oldFrame = state.memory[--state.registers.stackPointer.value];
             var oldPc = state.memory[--state.registers.stackPointer.value];
+            var oldFrame = state.memory[--state.registers.stackPointer.value];
+            var oldStack = state.memory[--state.registers.stackPointer.value];
 
-            state.registers.stackPointer = state.registers.framePointer;
+            state.registers.stackPointer = oldStack.As<VmInteger>();
             state.registers.framePointer = oldFrame.As<VmInteger>();
 
             oldPc.As<VmInteger>().value++;

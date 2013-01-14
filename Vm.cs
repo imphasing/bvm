@@ -18,8 +18,8 @@ namespace VmThing
 
         public IType Run()
         {
-            // execute until we unwind indo coad
-            while (state.registers.stackPointer.value >= state.instructionCount)
+            // int.MaxValue is the magical end of computation address
+            while (state.registers.programCounter.value != int.MaxValue)
             {
                 var nextInstruction = (IInstruction) state.memory[state.registers.programCounter.value];
                 nextInstruction.Execute(state);
