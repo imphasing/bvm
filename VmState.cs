@@ -27,7 +27,6 @@ namespace VmThing
             }
 
             this.registers = new RegisterState(null, null, null, new VmInteger(instructionCount), new VmInteger(instructionCount), new VmInteger(0));
-            
 
             // bootstrap main return address for final return
             new Load(new VmInteger(instructionCount), new VmInteger(1)).Execute(this);
@@ -37,6 +36,56 @@ namespace VmThing
             new Load(new VmInteger(int.MaxValue - 1), new VmInteger(1)).Execute(this);
             new Push().Execute(this);
             this.registers.programCounter = new VmInteger(0);
+            this.registers.register1 = null;
+        }
+
+
+        public IType ReferenceRegister(int register)
+        {
+            switch (register)
+            {
+                case 1:
+                    return this.registers.register1;
+                case 2:
+                    return this.registers.register2;
+                case 3:
+                    return this.registers.register3;
+                case 4:
+                    return this.registers.programCounter;
+                case 5:
+                    return this.registers.framePointer;
+                case 6:
+                    return this.registers.stackPointer;
+            }
+
+            throw new Exception("Unknown register referenced: " + register);
+        }
+
+        public IType SetRegister(int register, IType value)
+        {
+            switch (register)
+            {
+                case 1:
+                    this.registers.register1 = value;
+                    break;
+                case 2:
+                    this.registers.register2 = value;
+                    break;
+                case 3:
+                    this.registers.register3 = value;
+                    break;
+                case 4:
+                    this.registers.programCounter = (VmInteger) value;
+                    break;
+                case 5:
+                    this.registers.framePointer = (VmInteger) value;
+                    break;
+                case 6:
+                    this.registers.stackPointer = (VmInteger) value;
+                    break;
+            }
+
+            throw new Exception("Unknown register referenced: " + register);
         }
     }
 }

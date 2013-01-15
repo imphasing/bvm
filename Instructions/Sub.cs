@@ -6,20 +6,22 @@ using VmThing.Types;
 
 namespace VmThing.Instructions
 {
-    public class Push : IInstruction
+    public class Sub : IInstruction
     {
         public void Execute(VmState state)
         {
-            var toPush = state.registers.register1.RetrieveReference(state);
+            var arg1 = (VmInteger) state.registers.register1;
+            var arg2 = (VmInteger) state.registers.register2;
 
-            state.memory[state.registers.stackPointer.value] = toPush;
-            state.registers.stackPointer.value++;
+            var result = new VmInteger(arg1.value - arg2.value);
+            state.registers.register3 = result;
+
             state.registers.programCounter.value++;
         }
 
         public IType Copy()
         {
-            return new Push();
+            return new Sub();
         }
     }
 }

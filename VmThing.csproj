@@ -52,6 +52,11 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Instructions\Add.cs" />
     <Compile Include="Instructions\Call.cs" />
+    <Compile Include="Instructions\Shl.cs" />
+    <Compile Include="Instructions\Shr.cs" />
+    <Compile Include="Instructions\Div.cs" />
+    <Compile Include="Instructions\Mul.cs" />
+    <Compile Include="Instructions\Sub.cs" />
     <Compile Include="Instructions\Load.cs" />
     <Compile Include="Instructions\Ret.cs" />
     <Compile Include="Instructions\Pop.cs" />
@@ -59,6 +64,8 @@
     <Compile Include="Instructions\IInstruction.cs" />
     <Compile Include="RegisterState.cs" />
     <Compile Include="StackFrame.cs" />
+    <Compile Include="Types\VmMemoryRef.cs" />
+    <Compile Include="Types\VmRegisterRef.cs" />
     <Compile Include="Types\VmString.cs" />
     <Compile Include="Types\VmInteger.cs" />
     <Compile Include="Program.cs" />

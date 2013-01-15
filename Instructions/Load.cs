@@ -8,39 +8,25 @@ namespace VmThing.Instructions
 {
     public class Load : IInstruction
     {
-        private readonly IType toLoad;
-        private readonly VmInteger register;
+        private IType toLoad;
+        private IType destination;
 
-        public Load(IType toLoad, VmInteger register)
+        public Load(IType toLoad, IType destination)
         {
             this.toLoad = toLoad;
-            this.register = register;
+            this.destination = destination;
         }
 
         public void Execute(VmState state)
         {
-            switch (register.value)
-            {
-                case 1:
-                    state.registers.register1 = toLoad;
-                    break;
-                case 2:
-                    state.registers.register2 = toLoad;
-                    break;
-                case 3:
-                    state.registers.register3 = toLoad;
-                    break;
-                case 4:
-                    state.registers.programCounter = (VmInteger) toLoad;
-                    break;
-            }
-
+            toLoad = toLoad.RetrieveReference(state);
+            destination.AssignLocation(state, toLoad);
             state.registers.programCounter.value++;
         }
 
         public IType Copy()
         {
-            return new Load(toLoad.Copy(), (VmInteger) register.Copy());
+            return new Load(toLoad.Copy(), (VmInteger) destination.Copy());
         }
     }
 }
