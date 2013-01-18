@@ -11,21 +11,20 @@ namespace VmThing
     {
         public VmState state;
 
-        public Vm(List<IInstruction> instructions)
+        public Vm(List<IOpcode> instructions)
         {
-            this.state = new VmState(instructions);
+            this.state = new VmState(instructions, 1000000);
         }
 
-        public IType Run()
+        public int Run()
         {
             // int.MaxValue is the magical end of computation address
-            while (state.registers.programCounter.value != int.MaxValue)
+            while (state.registers[RegisterName.PC] != int.MaxValue)
             {
-                var nextInstruction = (IInstruction) state.memory[state.registers.programCounter.value];
-                nextInstruction.Execute(state);
+                // this won't work yet
             }
 
-            return state.registers.register3;
+            return state.registers[RegisterName.r1];
         }
     }
 }

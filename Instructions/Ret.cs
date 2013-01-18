@@ -6,19 +6,24 @@ using VmThing.Types;
 
 namespace VmThing.Instructions
 {
-    public class Ret : IInstruction
+    public class Ret : IOpcode
     {
         public void Execute(VmState state)
         {
-            var oldPc = state.memory[--state.registers.stackPointer.value];
-            var oldFrame = state.memory[--state.registers.stackPointer.value];
-            var oldStack = state.memory[--state.registers.stackPointer.value];
+            state.registers.ApplyAs<VmInteger>(x => x.value--, RegisterName.SP);
+            var oldPc = state.memory[state.registers.GetAs<VmInteger>(RegisterName.SP).value];
 
-            state.registers.stackPointer = oldStack.As<VmInteger>();
-            state.registers.framePointer = oldFrame.As<VmInteger>();
+            state.registers.ApplyAs<VmInteger>(x => x.value--, RegisterName.SP);
+            var oldFrame = state.memory[state.registers.GetAs<VmInteger>(RegisterName.SP).value];
+
+            state.registers.ApplyAs<VmInteger>(x => x.value--, RegisterName.SP);
+            var oldStack = state.memory[state.registers.GetAs<VmInteger>(RegisterName.SP).value];
+
+            state.registers.Set(RegisterName.SP, oldStack.As<VmInteger>());
+            state.registers.Set(RegisterName.FP, oldFrame.As<VmInteger>());
 
             oldPc.As<VmInteger>().value++;
-            state.registers.programCounter = oldPc.As<VmInteger>();
+            state.registers.Set(RegisterName.PC,  oldPc.As<VmInteger>());
         }
 
         public IType Copy()

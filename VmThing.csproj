@@ -62,6 +62,7 @@
     <Compile Include="Instructions\Pop.cs" />
     <Compile Include="Instructions\Push.cs" />
     <Compile Include="Instructions\IInstruction.cs" />
+    <Compile Include="RegisterName.cs" />
     <Compile Include="RegisterState.cs" />
     <Compile Include="StackFrame.cs" />
     <Compile Include="Types\VmMemoryRef.cs" />

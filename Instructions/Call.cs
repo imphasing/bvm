@@ -6,11 +6,11 @@ using VmThing.Types;
 
 namespace VmThing.Instructions
 {
-    public class Call : IInstruction
+    public class Call : IOpcode
     {
-        private VmInteger location;
+        private int location;
 
-        public Call(VmInteger location)
+        public Call(int location)
         {
             this.location = location;
         }
@@ -19,22 +19,22 @@ namespace VmThing.Instructions
         public void Execute(VmState state)
         {
             // push stack pointer, frame pointer, and program counter
-            new Load(state.registers.stackPointer.Copy(), new VmInteger(1)).Execute(state);
+            new Load(state.registers[RegisterName.SP], 1).Execute(state);
             new Push().Execute(state);
-            new Load(state.registers.framePointer.Copy(), new VmInteger(1)).Execute(state);
+            new Load(state.registers[RegisterName.FP], 1).Execute(state);
             new Push().Execute(state);
-            new Load(state.registers.programCounter.Copy(), new VmInteger(1)).Execute(state);
+            new Load(state.registers[RegisterName.PC], 1).Execute(state);
             new Push().Execute(state);
 
-            state.registers.framePointer = state.registers.stackPointer;
-            state.registers.stackPointer = state.registers.framePointer;
+            state.registers[RegisterName.FP] = state.registers[RegisterName.SP];
+            state.registers[RegisterName.SP] = state.registers[RegisterName.FP];
 
-            state.registers.programCounter.value = location.value;
+            state.registers[RegisterName.PC] = location;
         }
 
         public IType Copy()
         {
-            return new Call((VmInteger) location.Copy());
+            return new Call(location);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace VmThing
                 pop r1
                 ret
              */
-            var instructions = new List<IInstruction>();
+            var instructions = new List<IOpcode>();
 
             // address #0
             instructions.Add(new Load(new VmInteger(10), new VmInteger(1)));

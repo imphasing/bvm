@@ -6,7 +6,7 @@ using VmThing.Types;
 
 namespace VmThing.Instructions
 {
-    public class Shr : IInstruction
+    public class Shr : IOpcode
     {
         public VmInteger src;
 

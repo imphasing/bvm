@@ -6,7 +6,7 @@ using VmThing.Types;
 
 namespace VmThing.Instructions
 {
-    public class Sub : IInstruction
+    public class Sub : IOpcode
     {
         public void Execute(VmState state)
         {
