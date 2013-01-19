@@ -8,25 +8,27 @@ namespace VmThing.Instructions
 {
     public class Shr : IOpcode
     {
-        public VmInteger src;
+        private RegisterName target;
+        private RegisterName source;
+        private RegisterName result;
 
-        public Shr(VmInteger src)
+        public Shr(RegisterName target, RegisterName source, RegisterName result)
         {
-            this.src = src;
+            this.target = target;
+            this.source = source;
+            this.result = result;
         }
 
 
         public void Execute(VmState state)
         {
-            var arg1 = (VmInteger) state.registers.register1;
-            arg1.value >>= src.value;
-
-            state.registers.programCounter.value++;
+            state.registers[result] = state.registers[target] >> state.registers[source];
+            state.registers[RegisterName.PC] += 4;
         }
 
         public IType Copy()
         {
-            return new Shr((VmInteger) src.Copy());
+            return new Shr(target, source, result);
         }
     }
 }

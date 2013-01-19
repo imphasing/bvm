@@ -18,7 +18,8 @@ namespace VmThing
 
         public RegisterState()
         {   
-            foreach (var i in Enum.GetValues(typeof (RegisterName)))
+            this.registers = new Dictionary<RegisterName, int>();
+            foreach (var i in Enum.GetValues(typeof(RegisterName)))
             {
                 registers[i.As<RegisterName>()] = 0;
             }
@@ -26,7 +27,7 @@ namespace VmThing
 
         public byte[] GetBytes(RegisterName name)
         {
-            BitConverter.GetBytes(registers[name]);
+            return BitConverter.GetBytes(registers[name]);
         }
 
         public RegisterState Clone()

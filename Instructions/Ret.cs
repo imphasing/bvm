@@ -10,20 +10,18 @@ namespace VmThing.Instructions
     {
         public void Execute(VmState state)
         {
-            state.registers.ApplyAs<VmInteger>(x => x.value--, RegisterName.SP);
-            var oldPc = state.memory[state.registers.GetAs<VmInteger>(RegisterName.SP).value];
+            state.registers[RegisterName.SP] -= 4;
+            var oldPc = BitConverter.ToInt32(state.memory, state.registers[RegisterName.SP]);
+            state.registers[RegisterName.SP] -= 4;
+            var oldFrame = BitConverter.ToInt32(state.memory, state.registers[RegisterName.SP]);
+            state.registers[RegisterName.SP] -= 4;
+            var oldStack = BitConverter.ToInt32(state.memory, state.registers[RegisterName.SP]);
 
-            state.registers.ApplyAs<VmInteger>(x => x.value--, RegisterName.SP);
-            var oldFrame = state.memory[state.registers.GetAs<VmInteger>(RegisterName.SP).value];
+            state.registers[RegisterName.SP] = oldStack;
+            state.registers[RegisterName.FP] = oldFrame;
+            state.registers[RegisterName.PC] = oldPc;
 
-            state.registers.ApplyAs<VmInteger>(x => x.value--, RegisterName.SP);
-            var oldStack = state.memory[state.registers.GetAs<VmInteger>(RegisterName.SP).value];
-
-            state.registers.Set(RegisterName.SP, oldStack.As<VmInteger>());
-            state.registers.Set(RegisterName.FP, oldFrame.As<VmInteger>());
-
-            oldPc.As<VmInteger>().value++;
-            state.registers.Set(RegisterName.PC,  oldPc.As<VmInteger>());
+            state.registers[RegisterName.PC] += 4;
         }
 
         public IType Copy()

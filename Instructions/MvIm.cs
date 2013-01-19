@@ -6,28 +6,27 @@ using VmThing.Types;
 
 namespace VmThing.Instructions
 {
-    public class Load : IOpcode
+    public class MvIm : IOpcode
     {
-        private VmMemoryRef source;
+        private int toLoad;
         private RegisterName destination;
 
-        public Load(VmMemoryRef source, RegisterName destination)
+        public MvIm(int toLoad, RegisterName destination)
         {
-            this.source = source;
+            this.toLoad = toLoad;
             this.destination = destination;
         }
 
 
         public void Execute(VmState state)
         {
-            var value = BitConverter.ToInt32(state.memory, source.value);
-            state.registers[destination] = value;
+            state.registers[destination] = toLoad;
             state.registers[RegisterName.PC] += 4;
         }
 
         public IType Copy()
         {
-            return new Load(source, destination);
+            return new MvIm(toLoad, destination);
         }
     }
 }

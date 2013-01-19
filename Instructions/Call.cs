@@ -19,12 +19,9 @@ namespace VmThing.Instructions
         public void Execute(VmState state)
         {
             // push stack pointer, frame pointer, and program counter
-            new Load(state.registers[RegisterName.SP], 1).Execute(state);
-            new Push().Execute(state);
-            new Load(state.registers[RegisterName.FP], 1).Execute(state);
-            new Push().Execute(state);
-            new Load(state.registers[RegisterName.PC], 1).Execute(state);
-            new Push().Execute(state);
+            new Push(RegisterName.SP).Execute(state);
+            new Push(RegisterName.FP).Execute(state);
+            new Push(RegisterName.PC).Execute(state);
 
             state.registers[RegisterName.FP] = state.registers[RegisterName.SP];
             state.registers[RegisterName.SP] = state.registers[RegisterName.FP];

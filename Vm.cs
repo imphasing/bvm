@@ -21,10 +21,11 @@ namespace VmThing
             // int.MaxValue is the magical end of computation address
             while (state.registers[RegisterName.PC] != int.MaxValue)
             {
-                // this won't work yet
+                var instruction = state.instructions[state.registers[RegisterName.PC]];
+                instruction.Execute(state);
             }
 
-            return state.registers[RegisterName.r1];
+            return state.registers[RegisterName.RET];
         }
     }
 }

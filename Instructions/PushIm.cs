@@ -6,11 +6,11 @@ using VmThing.Types;
 
 namespace VmThing.Instructions
 {
-    public class Push : IOpcode
+    public class PushIm : IOpcode
     {
-        private RegisterName toPush;
+        private int toPush;
 
-        public Push(RegisterName toPush)
+        public PushIm(int toPush)
         {
             this.toPush = toPush;
         }
@@ -18,7 +18,7 @@ namespace VmThing.Instructions
 
         public void Execute(VmState state)
         {
-            var bytes = state.registers.GetBytes(toPush);
+            var bytes = BitConverter.GetBytes(toPush);
             state.memory[state.registers[RegisterName.SP]] = bytes[0];
             state.memory[state.registers[RegisterName.SP] + 1] = bytes[1];
             state.memory[state.registers[RegisterName.SP] + 2] = bytes[2];
@@ -30,7 +30,7 @@ namespace VmThing.Instructions
 
         public IType Copy()
         {
-            return new Push(toPush);
+            return new PushIm(toPush);
         }
     }
 }
