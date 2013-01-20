@@ -11,17 +11,17 @@ namespace VmThing.Instructions
         public void Execute(VmState state)
         {
             state.registers[RegisterName.SP] -= 4;
-            var oldPc = BitConverter.ToInt32(state.memory, state.registers[RegisterName.SP]);
+            var oldPc = BitConverter.ToUInt32(state.memory, state.registers[RegisterName.SP].As<int>());
             state.registers[RegisterName.SP] -= 4;
-            var oldFrame = BitConverter.ToInt32(state.memory, state.registers[RegisterName.SP]);
+            var oldFrame = BitConverter.ToUInt32(state.memory, state.registers[RegisterName.SP].As<int>());
             state.registers[RegisterName.SP] -= 4;
-            var oldStack = BitConverter.ToInt32(state.memory, state.registers[RegisterName.SP]);
+            var oldStack = BitConverter.ToUInt32(state.memory, state.registers[RegisterName.SP].As<int>());
 
             state.registers[RegisterName.SP] = oldStack;
             state.registers[RegisterName.FP] = oldFrame;
             state.registers[RegisterName.PC] = oldPc;
 
-            state.registers[RegisterName.PC] += 4;
+            state.registers[RegisterName.PC] += 1;
         }
 
         public IType Copy()

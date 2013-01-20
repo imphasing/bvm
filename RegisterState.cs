@@ -8,9 +8,9 @@ namespace VmThing
 {
     public class RegisterState
     {
-        public Dictionary<RegisterName, int> registers;
+        public Dictionary<RegisterName, uint> registers;
 
-        public int this[RegisterName register]
+        public uint this[RegisterName register]
         {
             get { return registers[register]; }
             set { registers[register] = value; }
@@ -18,7 +18,7 @@ namespace VmThing
 
         public RegisterState()
         {   
-            this.registers = new Dictionary<RegisterName, int>();
+            this.registers = new Dictionary<RegisterName, uint>();
             foreach (var i in Enum.GetValues(typeof(RegisterName)))
             {
                 registers[i.As<RegisterName>()] = 0;

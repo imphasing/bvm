@@ -21,7 +21,7 @@ namespace VmThing.Instructions
         public void Execute(VmState state)
         {
             state.registers[destination] = state.registers[toLoad];
-            state.registers[RegisterName.PC] += 4;
+            state.registers[RegisterName.PC] += 1;
         }
 
         public IType Copy()

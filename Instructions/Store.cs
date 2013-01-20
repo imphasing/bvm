@@ -26,7 +26,7 @@ namespace VmThing.Instructions
             state.memory[destination.value + 2] = bytes[2];
             state.memory[destination.value + 3] = bytes[3];
 
-            state.registers[RegisterName.PC] += 4;
+            state.registers[RegisterName.PC] += 1;
         }
 
         public IType Copy()

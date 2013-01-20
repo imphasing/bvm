@@ -22,8 +22,8 @@ namespace VmThing.Instructions
 
         public void Execute(VmState state)
         {
-            state.registers[result] = state.registers[target] >> state.registers[source];
-            state.registers[RegisterName.PC] += 4;
+            state.registers[result] = state.registers[target] >> state.registers[source].As<int>();
+            state.registers[RegisterName.PC] += 1;
         }
 
         public IType Copy()

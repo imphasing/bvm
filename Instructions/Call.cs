@@ -8,9 +8,9 @@ namespace VmThing.Instructions
 {
     public class Call : IOpcode
     {
-        private int location;
+        private uint location;
 
-        public Call(int location)
+        public Call(uint location)
         {
             this.location = location;
         }

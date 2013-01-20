@@ -7,9 +7,9 @@ namespace VmThing.Types
 {
     public class VmMemoryRef : IType
     {
-        public int value;
+        public uint value;
 
-        public VmMemoryRef(int value)
+        public VmMemoryRef(uint value)
         {
             this.value = this.value;
         }

@@ -7,7 +7,7 @@ namespace VmThing
 {
     public enum RegisterName
     {
-        R1,
+        R1 = 1,
         R2,
         R3,
         R4,

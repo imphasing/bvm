@@ -22,7 +22,7 @@ namespace VmThing
             Array.Clear(memory, 0, memory.Length);
 
 
-            var instructionCount = instructions.Count;
+            var instructionCount = (uint) instructions.Count;
 
             // bootstrap main return address for final return
             new PushIm(instructionCount).Execute(this);

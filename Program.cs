@@ -10,6 +10,12 @@ namespace VmThing
     {
         static void Main()
         {
+            var inst = new Add(RegisterName.R1, RegisterName.R2, RegisterName.R3);
+
+            var bin = inst.ToBinary();
+
+            Console.WriteLine(bin);
+
             /* 
                 load #10 R1
                 load #20 R2

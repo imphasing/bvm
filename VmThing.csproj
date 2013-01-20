@@ -69,7 +69,6 @@
     <Compile Include="Instructions\IOpcode.cs" />
     <Compile Include="RegisterName.cs" />
     <Compile Include="RegisterState.cs" />
-    <Compile Include="StackFrame.cs" />
     <Compile Include="Types\VmMemoryRef.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

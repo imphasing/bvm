@@ -8,10 +8,10 @@ namespace VmThing.Instructions
 {
     public class MvIm : IOpcode
     {
-        private int toLoad;
+        private uint toLoad;
         private RegisterName destination;
 
-        public MvIm(int toLoad, RegisterName destination)
+        public MvIm(uint toLoad, RegisterName destination)
         {
             this.toLoad = toLoad;
             this.destination = destination;
@@ -21,7 +21,7 @@ namespace VmThing.Instructions
         public void Execute(VmState state)
         {
             state.registers[destination] = toLoad;
-            state.registers[RegisterName.PC] += 4;
+            state.registers[RegisterName.PC] += 1;
         }
 
         public IType Copy()

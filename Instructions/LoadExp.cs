@@ -8,10 +8,10 @@ namespace VmThing.Instructions
 {
     public class LoadExp : IOpcode
     {
-        private Func<VmState, int> expression; 
+        private Func<VmState, uint> expression; 
         private RegisterName destination;
 
-        public LoadExp(Func<VmState, int> expression, RegisterName destination)
+        public LoadExp(Func<VmState, uint> expression, RegisterName destination)
         {
             this.expression = expression;
             this.destination = destination;
@@ -21,7 +21,7 @@ namespace VmThing.Instructions
         public void Execute(VmState state)
         {
             state.registers[destination] = state.memory[expression(state)];
-            state.registers[RegisterName.PC] += 4;
+            state.registers[RegisterName.PC] += 1;
         }
 
         public IType Copy()

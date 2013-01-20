@@ -20,9 +20,9 @@ namespace VmThing.Instructions
 
         public void Execute(VmState state)
         {
-            var value = BitConverter.ToInt32(state.memory, source.value);
+            var value = BitConverter.ToUInt32(state.memory, source.value.As<int>());
             state.registers[destination] = value;
-            state.registers[RegisterName.PC] += 4;
+            state.registers[RegisterName.PC] += 1;
         }
 
         public IType Copy()

@@ -16,12 +16,12 @@ namespace VmThing
             this.state = new VmState(instructions, 1000000);
         }
 
-        public int Run()
+        public uint Run()
         {
             // int.MaxValue is the magical end of computation address
-            while (state.registers[RegisterName.PC] != int.MaxValue)
+            while (state.registers[RegisterName.PC] != uint.MaxValue)
             {
-                var instruction = state.instructions[state.registers[RegisterName.PC]];
+                var instruction = state.instructions[state.registers[RegisterName.PC].As<int>()];
                 instruction.Execute(state);
             }
 
