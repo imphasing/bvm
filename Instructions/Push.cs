@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VmThing.Types;
-
+﻿
 namespace VmThing.Instructions
 {
-    public class Push : IOpcode
+    public class Push : IInstruction
     {
         private RegisterName toPush;
 
-        public Push(RegisterName toPush)
+        public Push(RegisterName toPush, RegisterName ignored = 0, RegisterName ignored2 = 0)
         {
+            // we re-use the 3 register format and having 2 ignored params makes the parser easier.
+
             this.toPush = toPush;
         }
 
@@ -25,12 +22,25 @@ namespace VmThing.Instructions
             state.memory[state.registers[RegisterName.SP] + 3] = bytes[3];
 
             state.registers[RegisterName.SP] += 4;
-            state.registers[RegisterName.PC] += 1;
+            state.registers[RegisterName.PC] += 4;
         }
 
-        public IType Copy()
+        public IInstruction Copy()
         {
             return new Push(toPush);
+        }
+
+        public uint ToBinary()
+        {
+            uint opcode = 7;
+            uint type = 0;
+            uint binary = 0;
+
+            binary |= (opcode << 26);
+            binary |= (type << 23);
+            binary |= ((uint) toPush << 20);
+
+            return binary;
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿using VmThing.Types;
-
+﻿
 namespace VmThing.Instructions
 {
-    public class Add : IOpcode
+    public class Add : IInstruction
     {
         private RegisterName arg1;
         private RegisterName arg2;
@@ -19,10 +18,10 @@ namespace VmThing.Instructions
         public void Execute(VmState state)
         {
             state.registers[result] = state.registers[arg1] + state.registers[arg2];
-            state.registers[RegisterName.PC] += 1;
+            state.registers[RegisterName.PC] += 4;
         }
 
-        public IType Copy()
+        public IInstruction Copy()
         {
             return new Add(arg1, arg2, result);
         }

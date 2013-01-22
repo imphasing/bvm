@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VmThing.Types;
-
+﻿
 namespace VmThing.Instructions
 {
-    public class Call : IOpcode
+    public class Call : IInstruction
     {
         private uint location;
 
@@ -18,10 +13,12 @@ namespace VmThing.Instructions
 
         public void Execute(VmState state)
         {
-            // push stack pointer, frame pointer, and program counter
+            // push stack pointer, frame pointer, and program counter then reset PC
+            var pc = state.registers[RegisterName.PC];
             new Push(RegisterName.SP).Execute(state);
             new Push(RegisterName.FP).Execute(state);
-            new Push(RegisterName.PC).Execute(state);
+            new PushIm(pc).Execute(state);
+            state.registers[RegisterName.PC] = pc;
 
             state.registers[RegisterName.FP] = state.registers[RegisterName.SP];
             state.registers[RegisterName.SP] = state.registers[RegisterName.FP];
@@ -29,9 +26,22 @@ namespace VmThing.Instructions
             state.registers[RegisterName.PC] = location;
         }
 
-        public IType Copy()
+        public IInstruction Copy()
         {
             return new Call(location);
+        }
+
+        public uint ToBinary()
+        {
+            uint opcode = 9;
+            uint type = 5;
+            uint binary = 0;
+
+            binary |= (opcode << 26);
+            binary |= (type << 23);
+            binary |= location;
+
+            return binary;
         }
     }
 }

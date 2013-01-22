@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="Parser\InstructionParser.cs" />
     <Compile Include="Instructions\Add.cs" />
     <Compile Include="Instructions\Call.cs" />
     <Compile Include="Instructions\PushIm.cs" />
@@ -66,13 +67,11 @@
     <Compile Include="Instructions\Ret.cs" />
     <Compile Include="Instructions\Pop.cs" />
     <Compile Include="Instructions\Push.cs" />
-    <Compile Include="Instructions\IOpcode.cs" />
+    <Compile Include="Instructions\IInstruction.cs" />
     <Compile Include="RegisterName.cs" />
     <Compile Include="RegisterState.cs" />
-    <Compile Include="Types\VmMemoryRef.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Types\IType.cs" />
     <Compile Include="Vm.cs" />
     <Compile Include="VmState.cs" />
   </ItemGroup>

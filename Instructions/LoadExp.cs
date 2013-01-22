@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VmThing.Types;
 
 namespace VmThing.Instructions
 {
-    public class LoadExp : IOpcode
+    public class LoadExp : IInstruction
     {
-        private Func<VmState, uint> expression; 
+        private Func<VmState, uint> expression;
         private RegisterName destination;
 
         public LoadExp(Func<VmState, uint> expression, RegisterName destination)
@@ -21,12 +17,17 @@ namespace VmThing.Instructions
         public void Execute(VmState state)
         {
             state.registers[destination] = state.memory[expression(state)];
-            state.registers[RegisterName.PC] += 1;
+            state.registers[RegisterName.PC] += 4;
         }
 
-        public IType Copy()
+        public IInstruction Copy()
         {
             return new LoadExp(expression, destination);
+        }
+
+        public uint ToBinary()
+        {
+            return 0;
         }
     }
 }

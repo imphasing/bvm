@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VmThing.Types;
 
 namespace VmThing.Instructions
 {
-    public class PushIm : IOpcode
+    public class PushIm : IInstruction
     {
         private uint toPush;
 
@@ -25,12 +21,25 @@ namespace VmThing.Instructions
             state.memory[state.registers[RegisterName.SP] + 3] = bytes[3];
 
             state.registers[RegisterName.SP] += 4;
-            state.registers[RegisterName.PC] += 1;
+            state.registers[RegisterName.PC] += 4;
         }
 
-        public IType Copy()
+        public IInstruction Copy()
         {
             return new PushIm(toPush);
+        }
+
+        public uint ToBinary()
+        {
+            uint opcode = 7;
+            uint type = 5;
+            uint binary = 0;
+
+            binary |= (opcode << 26);
+            binary |= (type << 23);
+            binary |= toPush;
+
+            return binary;
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using VmThing.Instructions;
-using VmThing.Types;
+using VmThing.Parser;
 
 namespace VmThing
 {
@@ -11,7 +9,7 @@ namespace VmThing
     {
         public VmState state;
 
-        public Vm(List<IOpcode> instructions)
+        public Vm(List<IInstruction> instructions)
         {
             this.state = new VmState(instructions, 1000000);
         }
@@ -21,7 +19,9 @@ namespace VmThing
             // int.MaxValue is the magical end of computation address
             while (state.registers[RegisterName.PC] != uint.MaxValue)
             {
-                var instruction = state.instructions[state.registers[RegisterName.PC].As<int>()];
+                var encoded = BitConverter.ToUInt32(state.memory, (int) state.registers[RegisterName.PC]);
+                var instruction = InstructionParser.Decode(encoded);
+
                 instruction.Execute(state);
             }
 

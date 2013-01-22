@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VmThing.Types;
-
+﻿
 namespace VmThing.Instructions
 {
-    public class Shr : IOpcode
+    public class Shr : IInstruction
     {
         private RegisterName target;
         private RegisterName source;
@@ -22,13 +17,28 @@ namespace VmThing.Instructions
 
         public void Execute(VmState state)
         {
-            state.registers[result] = state.registers[target] >> state.registers[source].As<int>();
-            state.registers[RegisterName.PC] += 1;
+            state.registers[result] = state.registers[target] >> (int) state.registers[source];
+            state.registers[RegisterName.PC] += 4;
         }
 
-        public IType Copy()
+        public IInstruction Copy()
         {
             return new Shr(target, source, result);
+        }
+
+        public uint ToBinary()
+        {
+            uint opcode = 4;
+            uint type = 0;
+            uint binary = 0;
+
+            binary |= (opcode << 26);
+            binary |= (type << 23);
+            binary |= ((uint)target << 20);
+            binary |= ((uint)source << 17);
+            binary |= ((uint)result << 14);
+
+            return binary;
         }
     }
 }

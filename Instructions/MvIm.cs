@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VmThing.Types;
-
+﻿
 namespace VmThing.Instructions
 {
-    public class MvIm : IOpcode
+    public class MvIm : IInstruction
     {
         private uint toLoad;
         private RegisterName destination;
@@ -21,12 +16,26 @@ namespace VmThing.Instructions
         public void Execute(VmState state)
         {
             state.registers[destination] = toLoad;
-            state.registers[RegisterName.PC] += 1;
+            state.registers[RegisterName.PC] += 4;
         }
 
-        public IType Copy()
+        public IInstruction Copy()
         {
             return new MvIm(toLoad, destination);
+        }
+
+        public uint ToBinary()
+        {
+            uint opcode = 8;
+            uint type = 3;
+            uint binary = 0;
+
+            binary |= (opcode << 26);
+            binary |= (type << 23);
+            binary |= (toLoad << 3);
+            binary |= (uint) destination;
+
+            return binary;
         }
     }
 }

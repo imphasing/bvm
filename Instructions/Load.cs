@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VmThing.Types;
 
 namespace VmThing.Instructions
 {
-    public class Load : IOpcode
+    public class Load : IInstruction
     {
-        private VmMemoryRef source;
+        private uint source;
         private RegisterName destination;
 
-        public Load(VmMemoryRef source, RegisterName destination)
+        public Load(uint source, RegisterName destination)
         {
             this.source = source;
             this.destination = destination;
@@ -20,14 +16,28 @@ namespace VmThing.Instructions
 
         public void Execute(VmState state)
         {
-            var value = BitConverter.ToUInt32(state.memory, source.value.As<int>());
+            var value = BitConverter.ToUInt32(state.memory, (int) source);
             state.registers[destination] = value;
-            state.registers[RegisterName.PC] += 1;
+            state.registers[RegisterName.PC] += 4;
         }
 
-        public IType Copy()
+        public IInstruction Copy()
         {
             return new Load(source, destination);
+        }
+
+        public uint ToBinary()
+        {
+            uint opcode = 10;
+            uint type = 3;
+            uint binary = 0;
+
+            binary |= (opcode << 26);
+            binary |= (type << 23);
+            binary |= (source << 3);
+            binary |= (uint) destination;
+
+            return binary;
         }
     }
 }

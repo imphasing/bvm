@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VmThing.Types;
-
+﻿
 namespace VmThing.Instructions
 {
-    public class Div : IOpcode
+    public class Div : IInstruction
     {
         private RegisterName arg1;
         private RegisterName arg2;
@@ -23,12 +18,27 @@ namespace VmThing.Instructions
         public void Execute(VmState state)
         {
             state.registers[result] = state.registers[arg1] / state.registers[arg2];
-            state.registers[RegisterName.PC] += 1;
+            state.registers[RegisterName.PC] += 4;
         }
 
-        public IType Copy()
+        public IInstruction Copy()
         {
             return new Div(arg1, arg2, result);
+        }
+
+        public uint ToBinary()
+        {
+            uint opcode = 3;
+            uint type = 0;
+            uint binary = 0;
+
+            binary |= (opcode << 26);
+            binary |= (type << 23);
+            binary |= ((uint) arg1 << 20);
+            binary |= ((uint) arg2 << 17);
+            binary |= ((uint) result << 14);
+
+            return binary;
         }
     }
 }
