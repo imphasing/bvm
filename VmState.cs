@@ -36,7 +36,7 @@ namespace VmThing
             // bootstrap main return address for final return
             new PushIm(instructionCount).Execute(this);
             new PushIm(instructionCount).Execute(this);
-            new PushIm(uint.MaxValue - 1).Execute(this);
+            new PushIm(uint.MaxValue - 4).Execute(this);
             registers[RegisterName.FP] = registers[RegisterName.SP];
 
             this.registers[RegisterName.PC] = 0;

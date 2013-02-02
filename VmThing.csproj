@@ -54,7 +54,7 @@
     <Compile Include="Instructions\Add.cs" />
     <Compile Include="Instructions\Call.cs" />
     <Compile Include="Instructions\PushIm.cs" />
-    <Compile Include="Instructions\LoadExp.cs" />
+    <Compile Include="Instructions\LoadOff.cs" />
     <Compile Include="Instructions\Store.cs" />
     <Compile Include="Instructions\MvIm.cs" />
     <Compile Include="Instructions\Mv.cs" />

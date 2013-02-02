@@ -130,11 +130,14 @@ namespace VmThing.Parser
         public static IInstruction ParseRegisterBlockRegister(uint opcode, uint goodies)
         {
             var register1 = goodies >> 20;
-            var value = ((goodies >> 3) << 12) >> 3;
+            var value = ((goodies >> 3) << 6) >> 6;
             var register2 = (goodies << 29) >> 29;
 
             switch (opcode)
             {
+                case 10:
+                    var bytes = BitConverter.GetBytes(value);
+                    return new LoadOff((RegisterName) register1, BitConverter.ToInt16(bytes, 0), (RegisterName) register2);
                 default:
                     throw new Exception("Unknown opcode for register-block-register type: " + opcode);
             }
