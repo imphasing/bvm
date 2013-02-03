@@ -27,8 +27,8 @@ namespace VmThing
             instructions.Add(new Push(RegisterName.R2));
             instructions.Add(new Push(RegisterName.R3));
             instructions.Add(new MvIm(63, RegisterName.R3));
-            instructions.Add(new LoadOff(RegisterName.FP, -16, RegisterName.R1));
-            instructions.Add(new LoadOff(RegisterName.FP, -20, RegisterName.R2));
+            instructions.Add(new LoadOff(RegisterName.FP, -4, RegisterName.R1));
+            instructions.Add(new LoadOff(RegisterName.FP, -5, RegisterName.R2));
             instructions.Add(new Add(RegisterName.R1, RegisterName.R2, RegisterName.RET));
             instructions.Add(new Pop(RegisterName.R3));
             instructions.Add(new Pop(RegisterName.R2));

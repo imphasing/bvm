@@ -133,11 +133,14 @@ namespace VmThing.Parser
             var value = ((goodies >> 3) << 6) >> 6;
             var register2 = (goodies << 29) >> 29;
 
+            var valueBytes = BitConverter.GetBytes(value);
+
             switch (opcode)
             {
                 case 10:
-                    var bytes = BitConverter.GetBytes(value);
-                    return new LoadOff((RegisterName) register1, BitConverter.ToInt16(bytes, 0), (RegisterName) register2);
+                    return new LoadOff((RegisterName) register1, BitConverter.ToInt16(valueBytes, 0), (RegisterName) register2);
+                case 12:
+                    return new StoreOff((RegisterName)register1, BitConverter.ToInt16(valueBytes, 0), (RegisterName)register2);
                 default:
                     throw new Exception("Unknown opcode for register-block-register type: " + opcode);
             }

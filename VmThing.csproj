@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="Instructions\StoreOff.cs" />
     <Compile Include="Parser\InstructionParser.cs" />
     <Compile Include="Instructions\Add.cs" />
     <Compile Include="Instructions\Call.cs" />

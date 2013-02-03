@@ -1,15 +1,16 @@
-﻿using System;
+﻿
+using System;
 
 namespace VmThing.Instructions
 {
-    public class LoadOff : IInstruction
+    public class StoreOff : IInstruction
     {
-        private RegisterName source;
-        private uint offsetUnsigned;
-        private short offset;
         private RegisterName destination;
+        private short offset;
+        private uint offsetUnsigned;
+        private RegisterName source;
 
-        public LoadOff(RegisterName source, short offset, RegisterName destination)
+        public StoreOff(RegisterName source, short offset, RegisterName destination)
         {
             var bytes = new byte[4];
             var shortBytes = BitConverter.GetBytes(offset);
@@ -20,8 +21,8 @@ namespace VmThing.Instructions
             var bytesAsUnsigned = BitConverter.ToUInt32(bytes, 0);
 
             this.source = source;
-            this.offsetUnsigned = bytesAsUnsigned;
             this.offset = offset;
+            this.offsetUnsigned = bytesAsUnsigned;
             this.destination = destination;
         }
 
@@ -34,29 +35,33 @@ namespace VmThing.Instructions
             int intOffset = offset;
             intOffset <<= 2;
 
-            int location = (int) state.registers[source] + intOffset;
+            int location = (int) state.registers[destination] + intOffset;
 
-            var value = BitConverter.ToUInt32(state.memory, location);
-            state.registers[destination] = value;
+            var bytes = state.registers.GetBytes(source);
+            state.memory[location] = bytes[0];
+            state.memory[location + 1] = bytes[1];
+            state.memory[location + 2] = bytes[2];
+            state.memory[location + 3] = bytes[3];
+
             state.registers[RegisterName.PC] += 4;
         }
 
         public IInstruction Copy()
         {
-            return new LoadOff(source, offset, destination);
+            return new StoreOff(source, offset, destination);
         }
 
         public uint ToBinary()
         {
-            uint opcode = 10;
+            uint opcode = 12;
             uint type = 1;
             uint binary = 0;
 
             binary |= (opcode << 26);
             binary |= (type << 23);
-            binary |= ((uint) source << 20);
+            binary |= ((uint)source << 20);
             binary |= offsetUnsigned << 3;
-            binary |= ((uint) destination);
+            binary |= ((uint)destination);
 
             return binary;
         }
