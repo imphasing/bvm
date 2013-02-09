@@ -1,5 +1,5 @@
 ﻿
-namespace VmThing.Instructions
+namespace bvm.Instructions
 {
     public interface IInstruction
     {

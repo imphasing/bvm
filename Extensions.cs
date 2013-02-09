@@ -1,5 +1,5 @@
 ﻿
-namespace VmThing
+namespace bvm
 {
     public static class Extensions
     {

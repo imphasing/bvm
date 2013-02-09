@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using VmThing.Instructions;
-using VmThing.Parser;
+using bvm.Instructions;
+using bvm.Parser;
 
-namespace VmThing
+namespace bvm
 {
     public class Vm
     {

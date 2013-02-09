@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace VmThing
+namespace bvm
 {
     public class RegisterState
     {

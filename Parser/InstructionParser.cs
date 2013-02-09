@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using VmThing.Instructions;
+using bvm.Instructions;
 
-namespace VmThing.Parser
+namespace bvm.Parser
 {
 
     /*

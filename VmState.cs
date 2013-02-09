@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using VmThing.Instructions;
+using bvm.Instructions;
 
-namespace VmThing
+namespace bvm
 {
     public class VmState
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using VmThing.Instructions;
-using VmThing.Parser;
+using bvm.Parser;
+using bvm.Instructions;
 
-namespace VmThing
+namespace bvm
 {
     public static class Program
     {

@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace VmThing.Instructions
+namespace bvm.Instructions
 {
     public class StoreOff : IInstruction
     {
