@@ -17,7 +17,7 @@ namespace bvm
         public uint Run()
         {
             // int.MaxValue is the magical end of computation address
-            while (state.registers[RegisterName.PC] != uint.MaxValue)
+            while (state.registers[RegisterName.PC] != int.MaxValue)
             {
                 var encoded = BitConverter.ToUInt32(state.memory, (int) state.registers[RegisterName.PC]);
                 var instruction = InstructionParser.Decode(encoded);
