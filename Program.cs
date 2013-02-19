@@ -8,7 +8,7 @@ namespace bvm
     public static class Program
     {
         static void Main()
-        {
+       {
             var instructions = new List<IInstruction>();
 
             // address #0

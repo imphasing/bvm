@@ -41,7 +41,13 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Addressing\MemorySource.cs" />
+    <Compile Include="Addressing\RegisterSource.cs" />
+    <Compile Include="Addressing\ISourceValue.cs" />
+    <Compile Include="Addressing\RegisterDestination.cs" />
+    <Compile Include="Addressing\MemoryDestination.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Addressing\IDestinationValue.cs" />
     <Compile Include="Instructions\StoreOff.cs" />
     <Compile Include="Parser\InstructionParser.cs" />
     <Compile Include="Instructions\Add.cs" />

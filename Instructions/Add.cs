@@ -1,4 +1,6 @@
 ﻿
+using bvm.Addressing;
+
 namespace bvm.Instructions
 {
     public class Add : IInstruction
